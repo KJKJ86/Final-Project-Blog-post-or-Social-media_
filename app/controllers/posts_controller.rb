@@ -38,11 +38,11 @@ class PostsController < ApplicationController
     end
   
     def destroy
-        if @post.destroy
-          redirect_to posts_path, notice: "Post deleted successfully."
-        else
-          redirect_to posts_path, alert: "Failed to delete post."
-        end
+      if @post.destroy
+         redirect_to posts_path, notice: "Post deleted successfully."
+      else
+         redirect_to posts_path, alert: "Failed to delete post."
+      end
     end
       
   

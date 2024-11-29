@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// ให้บริการไฟล์ static
+// ให้บริการไฟล์ static เช่น HTML, CSS, JS
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Route สำหรับหน้าแรก
