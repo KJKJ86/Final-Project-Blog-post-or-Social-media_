@@ -1,0 +1,4 @@
+<h2>Comment Details</h2>
+<p><%= @comment.content %></p>
+<p>Posted at: <%= @comment.created_at %></p>
+<p>Belongs to Post: <%= link_to @comment.post.title, post_path(@comment.post) %></p>

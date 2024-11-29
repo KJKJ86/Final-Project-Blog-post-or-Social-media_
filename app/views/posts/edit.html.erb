@@ -1,0 +1,14 @@
+<h1>Edit Post</h1>
+<%= form_with model: @post, local: true do |form| %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+  <div>
+    <%= form.label :content %>
+    <%= form.text_area :content, rows: 6, class: "form-control" %>
+  </div>
+  <div>
+    <%= form.submit "Update Post", class: "btn btn-primary" %>
+  </div>
+<% end %>

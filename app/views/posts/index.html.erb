@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <h1>Recent Posts</h1>
+
+  <% if user_signed_in? %>
+    <%= link_to "New Post", new_post_path, class: "btn btn-primary mb-4" %>
+  <% end %>
+
+  <div id="posts-list">
+    <% @posts.each do |post| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to post.title, post_path(post), class: "text-decoration-none" %></h5>
+          <p class="card-text"><%= truncate(post.content, length: 100) %></p>
+          <div class="d-flex justify-content-between">
+            <p class="text-muted">Likes: <%= post.likes_count %></p>
+            <% if user_signed_in? %>
+              <%= link_to "Like", like_post_path(post), method: :patch, remote: true, class: "btn btn-outline-success btn-sm" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
