@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
   root "posts#index"
@@ -6,6 +8,6 @@ Rails.application.routes.draw do
     member do
       patch :like
     end
-    resources :comments, only: [ :create, :destroy ]
+    resources :comments, only: %i[create destroy]
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDeviseToUsers < ActiveRecord::Migration[6.0]
   def up
     change_table :users, bulk: true do |t|
@@ -10,18 +12,14 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.0]
       t.datetime :remember_created_at
 
       # เพิ่ม timestamps หากไม่มีใน schema ปัจจุบัน
-      if !column_exists?(:users, :created_at) && !column_exists?(:users, :updated_at)
-        t.timestamps null: false
-      end
+      t.timestamps null: false if !column_exists?(:users, :created_at) && !column_exists?(:users, :updated_at)
     end
 
     # เพิ่ม indexes ที่เกี่ยวข้องกับ Devise
-    unless index_exists?(:users, :email)
-      add_index :users, :email, unique: true
-    end
-    unless index_exists?(:users, :reset_password_token)
-      add_index :users, :reset_password_token, unique: true
-    end
+    add_index :users, :email, unique: true unless index_exists?(:users, :email)
+    return if index_exists?(:users, :reset_password_token)
+
+    add_index :users, :reset_password_token, unique: true
   end
 
   def down
@@ -31,8 +29,8 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.0]
     remove_column :users, :reset_password_token if column_exists?(:users, :reset_password_token)
     remove_column :users, :reset_password_sent_at if column_exists?(:users, :reset_password_sent_at)
     remove_column :users, :remember_created_at if column_exists?(:users, :remember_created_at)
-    if column_exists?(:users, :created_at) && column_exists?(:users, :updated_at)
-      remove_timestamps :users
-    end
+    return unless column_exists?(:users, :created_at) && column_exists?(:users, :updated_at)
+
+    remove_timestamps :users
   end
 end
