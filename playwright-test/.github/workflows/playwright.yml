@@ -1,0 +1,25 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches:
+      - main # รันทุกครั้งเมื่อ push ไปที่ branch main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # ใช้ระบบปฏิบัติการ Ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3 # ดึงโค้ดจาก Repository
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # ใช้ Node.js เวอร์ชัน 18
+
+      - name: Install dependencies
+        run: npm install # ติดตั้ง dependencies
+
+      - name: Run Playwright tests
+        run: npx playwright test # รันทดสอบด้วย Playwright
