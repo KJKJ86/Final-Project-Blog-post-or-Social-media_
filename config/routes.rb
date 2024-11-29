@@ -6,6 +6,6 @@ Rails.application.routes.draw do
     member do
       patch :like
     end
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [ :create, :destroy ]
   end
 end
