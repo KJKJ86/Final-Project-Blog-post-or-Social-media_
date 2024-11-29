@@ -2,12 +2,17 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// ให้บริการไฟล์ static เช่น HTML, CSS, JS
+// ให้บริการไฟล์ static
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Route สำหรับหน้าแรก
 app.get('/', (req, res) => {
-  res.send('<h1>Playwright Test Server</h1><p>Server is running successfully!</p>');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Route สำหรับ /features
+app.get('/features', (req, res) => {
+  res.send('<h1>Features Page</h1><p>This is the features page.</p>');
 });
 
 // รันเซิร์ฟเวอร์ที่พอร์ต 3000
