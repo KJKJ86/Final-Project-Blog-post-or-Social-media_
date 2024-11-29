@@ -1,5 +1,6 @@
 services:
   - type: web
+    root: .
     name: my-web-app
     env: node
     region: oregon
