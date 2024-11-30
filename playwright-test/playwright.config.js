@@ -1,14 +1,31 @@
 const { defineConfig } = require('@playwright/test');
 
 module.exports = defineConfig({
-  testDir: './tests', // โฟลเดอร์ที่เก็บไฟล์ทดสอบ
+  testDir: './tests',
+  timeout: 30 * 1000,
+  retries: process.env.CI ? 2 : 0,
   webServer: {
-    command: 'npm run start', // คำสั่งรันเซิร์ฟเวอร์
-    url: 'http://localhost:3000', // URL ที่ต้องการตรวจสอบ
-    reuseExistingServer: !process.env.CI, // ใช้เซิร์ฟเวอร์เดิมถ้ามี
+    command: 'npm run start',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
   },
+  projects: [
+    {
+      name: 'chromium',
+      use: { browserName: 'chromium' },
+    },
+    {
+      name: 'firefox',
+      use: { browserName: 'firefox' },
+    },
+    {
+      name: 'webkit',
+      use: { browserName: 'webkit' },
+    },
+  ],
   use: {
-    headless: true, // รันทดสอบแบบไม่แสดง UI
-    trace: 'on-first-retry', // เก็บ Trace เมื่อการทดสอบล้มเหลว
+    headless: true,
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
   },
 });
