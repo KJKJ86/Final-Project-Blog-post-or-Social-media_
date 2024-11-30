@@ -21,5 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install # ติดตั้ง dependencies
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps # ติดตั้ง browser และ dependencies ที่จำเป็น
+
       - name: Run Playwright tests
         run: npx playwright test # รันทดสอบด้วย Playwright
